@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=62.3.2", "wheel"]
+
+[project]
+name = "logobj"
+version = "0.0.1"
+description = "Poorman's inspection debugger"
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["inspect", "dump", "pprint"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+
+[tool.setuptools]
+zip-safe = true
