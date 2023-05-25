@@ -11,7 +11,7 @@ import inspect, shutil, json
 from pprint import pformat as _pformat
 
 COLS, ROWS = shutil.get_terminal_size((120, 80))
-COLS -= 35
+# COLS -= 35
 NoneType = type(None)
 
 

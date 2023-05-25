@@ -1,9 +1,9 @@
 [build-system]
-requires = ["setuptools>=62.3.2", "wheel"]
+requires = ["setuptools>=62.3.2", "setuptools_scm[toml]>=6.2"]
 
 [project]
 name = "logobj"
-version = "0.0.1"
+dynamic = ["version"]
 description = "Poorman's inspection debugger"
 readme = "README.md"
 license = {text = "MIT"}
@@ -12,5 +12,6 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 
-[tool.setuptools]
-zip-safe = true
+[tool.setuptools_scm]
+version_scheme = "python-simplified-semver"
+local_scheme = "dirty-tag"
