@@ -1,0 +1,39 @@
+# Ref: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+# Ref: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
+
+# Syntax reference for GitHub Actions
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+
+name: PyPI
+
+on: [push]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Possible issue for debian since the current LTS (buster) defaults to 3.7.
+        # But, what the heck.  Let's live dangerously.
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -c "import sys,platform;print(f'Running python {sys.version.replace(chr(10), chr(32))} on {platform.uname()}')"
+        python -m pip install --upgrade pip wheel build setuptools setuptools_scm
+    - name: Build package
+      run: python -m build -w
+    - name: Publish package
+      uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+      with:
+        user: __token__
+        password: ${{ secrets.LOGOBJ_PYPI_GITHUB }}
